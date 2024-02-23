@@ -25,8 +25,8 @@ class App extends Component {
       const dataImages = await SearchImages(query, page);
 
       if (dataImages) {
-        const totalHits = dataImages.totalHits;
-        Notify.info(`Found ${totalHits} images matching your search query.`);
+        // const totalHits = dataImages.totalHits;
+        // Notify.info(`Found ${totalHits} images matching your search query.`);
 
         this.setState(prevState => ({
           photos: [...prevState.photos, ...dataImages.hits],
