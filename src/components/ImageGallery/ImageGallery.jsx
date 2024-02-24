@@ -4,7 +4,15 @@ import { Gallery } from './ImageGallery.styled';
 const ImageGallery = ({ images, onClick }) => {
   return (
     <Gallery>
-      <ImageGalleryItem images={images} onClick={onClick} />
+      {images.map(({ largeImageURL, tags, webformatURL, id }) => (
+        <ImageGalleryItem
+          key={id}
+          tags={tags}
+          largeImageURL={largeImageURL}
+          webformatURL={webformatURL}
+          onClick={onClick}
+        />
+      ))}
     </Gallery>
   );
 };

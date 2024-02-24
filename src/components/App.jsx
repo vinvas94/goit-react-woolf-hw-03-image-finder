@@ -23,18 +23,10 @@ class App extends Component {
 
     try {
       const dataImages = await SearchImages(query, page);
-
-      if (dataImages) {
-        // const totalHits = dataImages.totalHits;
-        // Notify.info(`Found ${totalHits} images matching your search query.`);
-
-        this.setState(prevState => ({
-          photos: [...prevState.photos, ...dataImages.hits],
-          isVisibleBtn: page < Math.ceil(dataImages.totalHits / 12),
-        }));
-      } else {
-        this.setState({ photos: [] });
-      }
+      this.setState(prevState => ({
+        photos: [...prevState.photos, ...dataImages.hits],
+        isVisibleBtn: page < Math.ceil(dataImages.totalHits / 12),
+      }));
     } catch (error) {
       Notify.failure(
         'An error occurred while searching for images. Please try again.'
@@ -82,7 +74,9 @@ class App extends Component {
         }}
       >
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery images={photos} onClick={this.toggleModal} />
+        {photos.length > 0 && (
+          <ImageGallery images={photos} onClick={this.toggleModal} />
+        )}
         {loading && <Loader />}
         {isVisibleBtn && <Button onClick={this.onBtnLoadMoreClick} />}
         {showModal && (
